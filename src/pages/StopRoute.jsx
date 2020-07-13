@@ -2,9 +2,9 @@ import React from "react";
 import { useParams } from 'react-router-dom';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
-import { Error, Success } from "../components/Alerts";
-import { Card } from "../components";
 import { StopRouteSign, StopTimeList, BusList, LiveBusMap } from "../components";
+import { Card } from '../components';
+import { Alert } from "react-bootstrap";
 
 const StopRoute = () => {
     const { id } = useParams();
@@ -63,10 +63,9 @@ const StopRoute = () => {
     let { data, error, loading } = useQuery(query);
     
     // Apollo loading or error
-    if (loading) { return <Success>Loading</Success> }
-    if (data.stopRoute == null) { return <Error>Error ID:{id} not found </Error> }
-    if (error) { return <Error>{error.message}</Error> }
-    
+    if (loading) { return <Alert variant="success">Loading</Alert> }
+    if (error) { return <Alert variant="danger">{error.message}</Alert> } 
+    if (data.stopRoute == null) { return <Alert variant="danger">Error ID:{id} not found</Alert> }
 
     const { stopRoute } = data;
     const { stop, route, liveBusData } = stopRoute;
@@ -83,14 +82,14 @@ const StopRoute = () => {
             </Card>
 
             {data.stopRoute.liveBusData.busCount === 0 && (
-                <Error>No live data is available</Error>
+                <Alert variant="danger">No live data is available</Alert>
             )}
 
             {data.stopRoute.liveBusData.busCount > 0 && (
-                <Card title="Live Bus Data">
+                <Card title="LiveBusData">
                     <BusList buses={liveBusData.buses} route={route} />
                     {stopRoute.map !== null && (<LiveBusMap map={stopRoute.map}/>)}
-                    {stopRoute.map === null && (<Error>Live map could not be created. No GPS data is available</Error>)}
+                    {stopRoute.map === null && (<Alert variant="danger">Live map could not be created. No GPS data is available</Alert>)}
                 </Card>
             )}
         </div>

@@ -1,8 +1,9 @@
 import React from "react";
 import { gql } from "apollo-boost";
 import { useQuery } from '@apollo/react-hooks';
-import { Success } from '../components/Alerts';
-import { FavouriteStopPreview } from '../components';
+import { FavouriteStopPreview } from "../components";
+import { Alert } from "react-bootstrap";
+
 
 let query = gql`
     query {
@@ -38,7 +39,7 @@ const User = () => {
     return (
         <div>
             {loading && (
-                <Success>Loading</Success>
+                <Alert variant="success">Loading</Alert>
             )}
 
             {(!loading && data) && (

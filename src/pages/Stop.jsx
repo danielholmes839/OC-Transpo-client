@@ -2,10 +2,8 @@ import React from "react";
 import { useParams } from 'react-router-dom';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
-import { Error, Success } from "../components/Alerts";
-import { Card, RouteSign } from "../components";
-import { Link } from "react-router-dom"
-import { StopTimeList } from "../components";
+import { StopTimeList, Card, StopRouteSignLink } from "../components";
+import { Col, Row, Alert } from "react-bootstrap";
 
 const Stop = () => {
     const { id } = useParams();
@@ -47,28 +45,28 @@ const Stop = () => {
     `;
 
     let { data, error, loading } = useQuery(query);
-    if (loading) { return <Success>Loading</Success> }
-    if (data.stop == null) { return <Error>Error ID:{id} not found </Error> }
-    if (error) { return <Error>{error.message}</Error> }
+    if (loading) { return <Alert variant="success">Loading</Alert> }
+    if (error) { return <Alert variant="danger">{error.message}</Alert> }
+    if (data.stop == null) { return <Alert variant="danger">Error ID:{id} not found</Alert> }
 
     const { stop } = data;
     const { stopRoutes } = stop;
 
     return (
         <Card title={stop.name}>
-            <div className="row mt-3">
+            <Row className="mt-3">
                 {stopRoutes.map(stopRoute => {
+                    let { id, schedule, liveBusData, route, number, headsign } = stopRoute;
                     return (
-                        <div className="col-lg-4 col-md-6 col-sm-12 mb-4">
-                            <h6><Link to={"/stoproute/" + stopRoute.id}><RouteSign route={stopRoute.route} /> {stopRoute.headsign}</Link></h6>
-                            <p className="mb-1">
-                                <StopTimeList stopTimes={stopRoute.schedule.next} number={stopRoute.number} headsign={stopRoute.headsign} />
-                            </p>
-                            <span className="text-muted">{stopRoute.liveBusData.busCount} Live buses</span>
-                        </div>
+                        <Col key={id} lg={4} md={6} sm={12} className="mb-4">
+                            <h6><StopRouteSignLink id={id} route={route} headsign={headsign}/></h6>
+                            <StopTimeList stopTimes={schedule.next} number={number} headsign={headsign} />
+                            <br />
+                            <span className="text-muted">{liveBusData.busCount} Live buses</span>
+                        </Col>
                     )
                 })}
-            </div>
+            </Row>
         </Card>
     )
 }

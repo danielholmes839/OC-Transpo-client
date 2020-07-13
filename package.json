@@ -12,10 +12,13 @@
     "apollo-link-http": "^1.5.17",
     "bootstrap": "^4.5.0",
     "graphql": "^15.1.0",
+    "lodash.debounce": "^4.0.8",
     "react": "^16.13.1",
+    "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "use-lodash-debounce": "^1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -23,6 +26,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "homepage": "http://localhost:8000/app",
   "eslintConfig": {
     "extends": "react-app"
   },

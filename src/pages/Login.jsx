@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import { Link, Redirect  } from "react-router-dom";
 import { gql } from "apollo-boost";
 import { useAuth } from "../context/auth";
-import client from "../Client";
-import { Error } from "../components/Alerts";
+import client from "../graphql/client";
+import { Alert } from "react-bootstrap";
+
 
 const Login = () => {
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [error, setError] = useState({ error: false, message: "" })
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { setAuthTokens } = useAuth();
+    const { setAuthData } = useAuth();
 
     const loginQuery = async () => {
         try {
@@ -24,11 +25,11 @@ const Login = () => {
                 `
             });
             setError({ error: false, message: "" })
-            setAuthTokens({ token: data.login.token });
+            setAuthData({ token: data.login.token, user: email });
             setLoggedIn(true);
         } catch (error) {
             setLoggedIn(false);
-            setAuthTokens({ token: null });
+            setAuthData(null);
             setError({ error: true, message: "Login Failed" });
         }
     }
@@ -69,16 +70,14 @@ const Login = () => {
                     </div>
 
                     {error.error &&
-                        <Error>
-                            {error.message}
-                        </Error>
+                        <Alert variant="danger">{error.message}</Alert>
                     }
                     <div className="mt-3">
                         <p>Don't have an account? <Link to="/signup">Signup</Link></p>
                     </div>
                 </div>
             </div>
-            {isLoggedIn && <Redirect to="/user"/>}
+            {isLoggedIn && <Redirect to="/dashboard"/>}
         </div>
 
         
