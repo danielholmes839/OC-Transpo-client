@@ -17,7 +17,6 @@ const defaultOptions = {
 
 const httpLink = createHttpLink({
   //uri: 'http://og-transpo.us-east-1.elasticbeanstalk.com/graphql',
-  uri: 'http://192.168.2.37:3000/',
 });
 
 const authLink = setContext((_, { headers }) => {
