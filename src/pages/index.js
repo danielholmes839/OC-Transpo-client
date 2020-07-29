@@ -1,9 +1,8 @@
-import FavouriteStop from "./FavouriteStop";
 import Home from "./Home";
-import Login from "./Login";
-import Signup from "./Signup";
+import History from "./History"
+import Search from "./Search";
 import Stop from "./Stop";
 import StopRoute from "./StopRoute";
-import Dashboard from "./Dashboard";
 
-export { FavouriteStop, Home, Login, Signup, Stop, StopRoute, Dashboard }
+
+export { Home, History, Search, Stop, StopRoute }

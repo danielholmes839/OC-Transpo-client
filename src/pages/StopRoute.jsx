@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
-import { StopRouteSign, StopTimeList, BusList, LiveBusMap } from "../components";
-import { Card } from '../components';
-import { Alert } from "react-bootstrap";
+import { gql } from 'apollo-boost';
+import { Alert } from 'react-bootstrap';
+import { StopRouteSign, StopTimeList, BusList, LiveBusMap, Card } from 'components';
+
 
 const StopRoute = () => {
     const { id } = useParams();
@@ -61,10 +61,10 @@ const StopRoute = () => {
     `;
 
     let { data, error, loading } = useQuery(query);
-    
+
     // Apollo loading or error
     if (loading) { return <Alert variant="success">Loading</Alert> }
-    if (error) { return <Alert variant="danger">{error.message}</Alert> } 
+    if (error) { return <Alert variant="danger">{error.message}</Alert> }
     if (data.stopRoute == null) { return <Alert variant="danger">Error ID:{id} not found</Alert> }
 
     const { stopRoute } = data;
@@ -72,9 +72,9 @@ const StopRoute = () => {
 
     return (
         <div>
-            <div className="mb-4">
-                <h1>{stop.name} {stop.code}</h1>
-                <h4><StopRouteSign route={route} headsign={stopRoute.headsign}/></h4>
+            <div className="mt-3">
+                <h1 className="font-weight-bold"><StopRouteSign route={route} headsign={stopRoute.headsign} /></h1>
+                <p className="text-muted">{stop.name} - {stop.code}</p>
             </div>
 
             <Card title="Schedule">
@@ -88,7 +88,7 @@ const StopRoute = () => {
             {data.stopRoute.liveBusData.busCount > 0 && (
                 <Card title="LiveBusData">
                     <BusList buses={liveBusData.buses} route={route} />
-                    {stopRoute.map !== null && (<LiveBusMap map={stopRoute.map}/>)}
+                    {stopRoute.map !== null && (<LiveBusMap map={stopRoute.map} />)}
                     {stopRoute.map === null && (<Alert variant="danger">Live map could not be created. No GPS data is available</Alert>)}
                 </Card>
             )}

@@ -1,22 +1,23 @@
 // Apollo
 import { ApolloClient } from "apollo-boost";
-import { createHttpLink } from 'apollo-link-http';
-import { setContext } from 'apollo-link-context';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { createHttpLink } from "apollo-link-http";
+import { setContext } from "apollo-link-context";
+import { InMemoryCache } from "apollo-cache-inmemory";
 
 const defaultOptions = {
   watchQuery: {
-    fetchPolicy: 'no-cache',
-    errorPolicy: 'ignore',
+    fetchPolicy: "no-cache",
+    errorPolicy: "ignore",
   },
   query: {
-    fetchPolicy: 'no-cache',
-    errorPolicy: 'all',
+    fetchPolicy: "no-cache",
+    errorPolicy: "all",
   },
-}
+};
 
 const httpLink = createHttpLink({
   //uri: 'http://og-transpo.us-east-1.elasticbeanstalk.com/graphql',
+  uri: "http://octranspo-graphql.us-east-1.elasticbeanstalk.com/",
 });
 
 const authLink = setContext((_, { headers }) => {
