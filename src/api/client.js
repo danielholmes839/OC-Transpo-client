@@ -17,8 +17,8 @@ const defaultOptions = {
 
 const httpLink = createHttpLink({
   //uri: 'http://og-transpo.us-east-1.elasticbeanstalk.com/graphql',
-  //uri: "https://octranspo-graphql.herokuapp.com/",
-  uri: "https://www.oc-transpo-graphql.com/graphql"
+  //uri: "https://www.oc-transpo-graphql.com/graphql"
+  uri: "https://octranspo-graphql.herokuapp.com/",
 });
 
 const authLink = setContext((_, { headers }) => {
