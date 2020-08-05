@@ -38,11 +38,11 @@ const Search = () => {
         <React.Fragment>
             <div className="mt-3">
                 <h1 className="font-weight-bold">Search</h1>
-                <p className="text-muted">Find a stop</p>
+                <p className="text-muted">Find your stop by name or 4 digit stop code</p>
                 <input
                     type="text"
                     className="form-control mb-1"
-                    placeholder="Search: Hurdman, Tunneys..."
+                    placeholder="Search: Hurdman, Tunneys, 3023..."
                     value={search}
                     onChange={e => {
                         setSearch(e.target.value);
@@ -53,7 +53,7 @@ const Search = () => {
             {debouncedSearch.length > 0 && <SearchResults search={debouncedSearch} setLoading={setLoading} />}
 
             {loading && (
-                <div className="text-center">
+                <div className="text-center mt-4">
                     <Spinner animation="border" variant="primary" />
                 </div>
             )}

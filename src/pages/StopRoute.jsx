@@ -86,7 +86,7 @@ const StopRoute = () => {
             )}
 
             {data.stopRoute.liveBusData.busCount > 0 && (
-                <Card title="LiveBusData">
+                <Card title="Live Bus Data">
                     <BusList buses={liveBusData.buses} route={route} />
                     {stopRoute.map !== null && (<LiveBusMap map={stopRoute.map} />)}
                     {stopRoute.map === null && (<Alert variant="danger">Live map could not be created. No GPS data is available</Alert>)}
