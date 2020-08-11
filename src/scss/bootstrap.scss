@@ -1,0 +1,25 @@
+$primary: #772ce8; //#0032FE;
+$primary-dark: #090212;
+$primary-light: #A06CEF;
+$dark: #171214;
+
+$danger: #ED1D46;
+$link-color: $primary;
+$link-hover-color: $primary;
+
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+
+
+$colors: map-remove($colors, "blue", "indigo", "purple", "pink", "red", "orange", "yellow", "green", "teal", "cyan");
+
+$theme-colors: (
+  "primary": $primary,
+  "primary-dark": $primary-dark,
+  "primary-light": $primary-light,
+  "danger": $danger,
+  "dark": $dark
+);
+
+@import "../../node_modules/bootstrap/scss/bootstrap";

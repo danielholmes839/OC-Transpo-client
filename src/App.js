@@ -1,6 +1,6 @@
 import React from "react";
 import Container from "react-bootstrap/Container"
-import "bootstrap/dist/css/bootstrap.min.css";
+import "css/bootstrap.css";
 import "css/card.css";
 
 // Apollo
@@ -18,7 +18,9 @@ const App = () => {
     <ApolloProvider client={client}>
       <HistoryContext.Provider value={new HistoryManager('history', 10)}>
         <Router>
-          <Nav />
+          <div>
+            <Nav/>
+          </div>
           <Container>
             <Route exact path="/"><Redirect to="/home" /></Route>
             <Route exact path="/home" component={Home} />

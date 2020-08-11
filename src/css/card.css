@@ -1,3 +1,7 @@
+body {
+    color: black;
+}
+
 div.card-shadow {
     border-radius: 10px;
     background: #ffffff;

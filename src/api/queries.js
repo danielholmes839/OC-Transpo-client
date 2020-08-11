@@ -24,6 +24,29 @@ export const searchQuery = (text) => {
     `;
 };
 
+export const stopHistoryQuery = (stops) => {
+    /* Search stops */
+    return gql`
+        query {
+            stops: Stop_getMany(stops: ${JSON.stringify(stops)}) {
+                id
+                name
+                code
+                stopRoutes {
+                    id
+                    headsign
+                    number
+                    route {
+                        textColour
+                        backgroundColour
+                        number
+                    }
+                }
+            }  
+        }
+    `;
+};
+
 export const stopQuery = (id) => {
     return gql`
         query {

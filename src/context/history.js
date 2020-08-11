@@ -3,13 +3,13 @@ import React from "react";
 
 class HistoryManager {
     constructor(name, size) {
+        console.log(`History: ${name}`)
         this.name = name
         this.size = size
-        this.items = this.get();
-        console.log('called constructor');
+        this.items = this.read();
     }
 
-    get() {
+    read() {
         let history = localStorage.getItem(this.name);
         if (history == null) {
             return [];
@@ -19,8 +19,9 @@ class HistoryManager {
         }
     }
 
-    add(stop) {
-        this.items.unshift(stop);
+    add(item) {
+        this.items = this.items.filter(existing => existing !== item)
+        this.items.unshift(item);
         if (this.items.length > this.size) {
             this.items = this.items.slice(0, this.size);
         }
@@ -30,6 +31,11 @@ class HistoryManager {
     save() {
         let history = JSON.stringify(this.items)
         localStorage.setItem(this.name, history);
+    }
+
+    clear() {
+        this.items = [];
+        this.save();
     }
 }
 

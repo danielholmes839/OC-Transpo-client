@@ -1,34 +1,32 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { Col, Row } from "react-bootstrap";
-import { StopTimeList, StopRouteSignLink, Card, Alert } from "components";
+import { StopTimeList, StopRouteSignLink, Card, Page, IndentedParagraph, LoadingSpinner } from "components";
 import { stopQuery } from "api";
 import { HistoryContext } from 'context';
 
 
-const Stop = () => {
-    const { id } = useParams();
-    const history = useContext(HistoryContext);
-    console.log(history);
-    history.add(id);
-    console.log(history.items);
-    const query = stopQuery(id);
-    let { data, error, loading } = useQuery(query);
-    if (loading) { return <Alert.Success>Loading</Alert.Success> }
-    if (error) { return <Alert.Danger>{error.message}</Alert.Danger> }
-    if (data.stop == null) { return <Alert.Danger>Error ID:{id} not found</Alert.Danger> }
-    
-    
+const StopQuery = () => {
+    // Query stop data
+    let { id } = useParams();
+    let history = useContext(HistoryContext);
+
+    let { data, error, loading } = useQuery(stopQuery(id));
+    if (loading) { return <LoadingSpinner /> }
+    else if (error || data.stop == null) {
+        return <p>Error!</p> 
+    } else {
+        history.add(id);
+    }
+    // if (data.stop == null) { return <Alert.Danger>Error ID:{id} not found</Alert.Danger> }
+
     const { stop } = data;
     const { stopRoutes } = stop;
 
     return (
-        <div>
-            <div className="mt-3">
-                <h1 className="font-weight-bold">{stop.name}</h1>
-                <p className="text-muted">Stop #{stop.code}</p>
-            </div>
+        <Page title={stop.name}>
+            <IndentedParagraph>Stop #{stop.code}</IndentedParagraph>
             <Row>
                 {stopRoutes.sort((a, b) => (parseInt(a.number) > parseInt(b.number)) ? 1 : -1).map(stopRoute => {
                     let { id, schedule, liveBusData, route, number, headsign } = stopRoute;
@@ -44,8 +42,13 @@ const Stop = () => {
                     )
                 })}
             </Row>
-        </div>
+        </Page>
     )
 }
+const StopWrapper = () => {
+    return <StopQuery/>
 
-export default Stop;
+
+}
+
+export default StopWrapper;
