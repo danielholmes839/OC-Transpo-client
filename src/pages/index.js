@@ -3,6 +3,6 @@ import History from "./History"
 import Search from "./Search";
 import Stop from "./Stop";
 import StopRoute from "./StopRoute";
+import StopTime from "./StopTime";
 
-
-export { Home, History, Search, Stop, StopRoute }
+export { Home, History, Search, Stop, StopRoute, StopTime }

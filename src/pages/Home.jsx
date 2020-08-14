@@ -44,6 +44,7 @@ const Home = () => {
                 </IndentedParagraph>
                 <ButtonAnchor href={"https://github.com/danielholmes839/OC-Transpo-GraphQL"}>GitHub / Server</ButtonAnchor>
                 <ButtonAnchor href={"https://github.com/danielholmes839/OC-Transpo-client"}>GitHub / Client</ButtonAnchor>
+                <ButtonAnchor href={"https://octranspo-graphql.herokuapp.com/"}>GraphQL Endpoint</ButtonAnchor>
             </Section>
 
             <p className="text-muted">Created by Daniel Holmes</p>

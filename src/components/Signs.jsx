@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { stopRoutePattern } from 'routes'
 
 
 export const RouteSign = ({ route }) => {
@@ -21,6 +22,6 @@ export const StopRouteSign = ({ route, headsign }) => {
 
 export const StopRouteSignLink = ({ id, route, headsign }) => {
     return (
-        <Link to={"/stoproute/" + id}><RouteSign route={route} /> {headsign}</Link>
+        <Link to={stopRoutePattern(id)}><RouteSign route={route} /> {headsign}</Link>
     );
 };

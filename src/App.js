@@ -10,24 +10,27 @@ import { client } from "api";
 // Routing
 import { Nav } from "routes";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-import { Home, History, Search, Stop, StopRoute } from "pages";
-import { HistoryContext, HistoryManager } from 'context';
+import { homePath, historyPath, searchPath, stopPath, stopRoutePath, stopTimePath } from "routes";
+import { Home, History, Search, Stop, StopRoute, StopTime } from "pages";
+import { HistoryContext, HistoryManager } from "context";
+
 
 const App = () => {
   return (
     <ApolloProvider client={client}>
-      <HistoryContext.Provider value={new HistoryManager('history', 10)}>
+      <HistoryContext.Provider value={new HistoryManager("history", 10)}>
         <Router>
           <div>
-            <Nav/>
+            <Nav />
           </div>
           <Container>
-            <Route exact path="/"><Redirect to="/home" /></Route>
-            <Route exact path="/home" component={Home} />
-            <Route exact path="/history" component={History} />
-            <Route exact path="/search" component={Search} />
-            <Route path="/stop/:id" component={Stop} />
-            <Route path="/stoproute/:id" component={StopRoute} />
+            <Route exact path="/"><Redirect to={homePath} /></Route>
+            <Route exact path={homePath} component={Home} />
+            <Route exact path={historyPath} component={History} />
+            <Route exact path={searchPath} component={Search} />
+            <Route path={stopPath} component={Stop} />
+            <Route path={stopRoutePath} component={StopRoute} />
+            <Route path={stopTimePath} component={StopTime} />
           </Container>
         </Router>
       </HistoryContext.Provider>

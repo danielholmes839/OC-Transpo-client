@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { Col, Row } from "react-bootstrap";
-import { StopTimeList, StopRouteSignLink, Card, Page, IndentedParagraph, LoadingSpinner } from "components";
+import { StopTimeList, StopRouteSignLink, Card, Page, ErrorPage, IndentedParagraph, LoadingSpinner } from "components";
 import { stopQuery } from "api";
 import { HistoryContext } from 'context';
 
@@ -15,7 +15,7 @@ const StopQuery = () => {
     let { data, error, loading } = useQuery(stopQuery(id));
     if (loading) { return <LoadingSpinner /> }
     else if (error || data.stop == null) {
-        return <p>Error!</p> 
+        return <ErrorPage title={"Stop Error"}>Stop with id "{id}" could not be found</ErrorPage>
     } else {
         history.add(id);
     }
@@ -46,7 +46,7 @@ const StopQuery = () => {
     )
 }
 const StopWrapper = () => {
-    return <StopQuery/>
+    return <StopQuery />
 
 
 }

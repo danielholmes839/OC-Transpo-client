@@ -9,9 +9,9 @@ const HistoryEmpty = () => {
     return (
         <Page title={"History"}>
             <IndentedParagraph>
-                There's nothing here... Try finding your stop
+                There's nothing here... You haven't viewed any stops yet
             </IndentedParagraph>
-            <ButtonLink to={"/search"}>Search ></ButtonLink>
+            <ButtonLink to={"/search"}>Search</ButtonLink>
         </Page>
     )
 }
@@ -23,18 +23,20 @@ const HistoryExists = ({ stops, setStops }) => {
     }
 
     let history = useContext(HistoryContext);
-    let { data, loading } = useQuery(stopHistoryQuery(stops));
+    let { data, error, loading } = useQuery(stopHistoryQuery(stops));
+    if (loading) { return <LoadingSpinner /> }
+    else if (error) { 
+        console.log(error);
+        return "Error"
+    }
 
     return (
         <Page title={"History"}>
             <IndentedParagraph>Previously viewed stops</IndentedParagraph>
-            {loading && <LoadingSpinner />}
-            {!loading && (
-                <div>
-                    <button onClick={clearHistory} className="btn btn-danger btn-sm px-5 font-weight-bold">Clear</button>
-                    {data.stops.filter(stop => stop != null).map(stop => <StopPreview key={stop.id} stop={stop} />)}
-                </div>
-            )}
+            <div>
+                <button onClick={clearHistory} className="btn btn-danger btn-sm px-5 font-weight-bold">Clear</button>
+                {data.stops.filter(stop => stop != null).map(stop => <StopPreview key={stop.id} stop={stop} />)}
+            </div>
         </Page>
     )
 }

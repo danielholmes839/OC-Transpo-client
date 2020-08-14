@@ -4,6 +4,7 @@ import { StopPreview } from "./StopPreview";
 import { RouteSign, StopRouteSign, StopRouteSignLink, } from "./Signs";
 import { Page, IndentedParagraph } from "./Page";
 import { ButtonLink, ButtonAnchor } from "./Buttons";
+import { ErrorPage, ErrorMessage } from "./Error";
 
 import StopRouteList from "./StopRouteList";
 import StopTimeList from "./StopTimeList";
@@ -14,6 +15,6 @@ export {
     Bus, BusList, LiveBusMap,
     Card, StopPreview,
     RouteSign, StopRouteSign, StopRouteSignLink,
-    Page, IndentedParagraph, ButtonAnchor, ButtonLink,
+    Page, IndentedParagraph, ButtonAnchor, ButtonLink, ErrorPage, ErrorMessage,
     StopRouteList, StopTimeList, LoadingSpinner, Section
 }

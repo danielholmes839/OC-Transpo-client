@@ -28,7 +28,7 @@ export const stopHistoryQuery = (stops) => {
     /* Search stops */
     return gql`
         query {
-            stops: Stop_getMany(stops: ${JSON.stringify(stops)}) {
+            stops: Stop_getMany(ids: ${JSON.stringify(stops)}) {
                 id
                 name
                 code
@@ -50,7 +50,7 @@ export const stopHistoryQuery = (stops) => {
 export const stopQuery = (id) => {
     return gql`
         query {
-            stop: Stop_get(stop: "${id}") {
+            stop: Stop_get(id: "${id}") {
                 id
                 name
                 code
@@ -90,7 +90,7 @@ export const stopQuery = (id) => {
 export const stopRouteQuery = (id) => {
     return gql`
         query {
-            stopRoute: StopRoute_get(stopRoute: "${id}") {
+            stopRoute: StopRoute_get(id: "${id}") {
                 id
                 headsign
                 number
@@ -140,3 +140,69 @@ export const stopRouteQuery = (id) => {
         }
     `;
 };
+
+
+export const stopTimeQuery = (id) => {
+    return gql`
+        query {
+            stopTime: StopTime_get(id: "${id}") {
+                id
+                
+                stop {
+                    id
+                    code
+                    name
+                }
+                
+                stopRoute {
+                    id
+                    headsign
+                }
+
+                route {
+                    id
+                    number
+                    backgroundColour
+                    textColour
+                }
+                
+                time {
+                    string
+                }
+                
+                service {
+                    monday
+                    tuesday
+                    wednesday
+                    thursday
+                    friday
+                    saturday
+                    sunday
+
+                    start {
+                        string
+                    }
+                    
+                    end {
+                        string
+                    }
+                }
+                
+                trip {
+                    id
+                    stopTimes {
+                        id
+                        stop {
+                            id
+                            code
+                            name
+                        }
+                        time {
+                            string
+                        }
+                    }
+                }
+            }
+        }
+    `
+}

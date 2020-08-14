@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { useDebounce } from "use-lodash-debounce";
 import { searchQuery } from "api";
-import { StopPreview, Page, IndentedParagraph, LoadingSpinner } from "components";
+import { StopPreview, Page, IndentedParagraph, LoadingSpinner, ErrorMessage } from "components";
 
 
 const SearchQuery = ({ search, setLoading }) => {
@@ -10,7 +10,9 @@ const SearchQuery = ({ search, setLoading }) => {
 
     useEffect(() => setLoading(false))
     if (loading) { return null; }
-    if (error) { return null; }
+    else if (error || data.stops.length === 0) {
+        return (<ErrorMessage>No stops could found for: {search}</ErrorMessage>)
+    }
 
     return (
         <div>
