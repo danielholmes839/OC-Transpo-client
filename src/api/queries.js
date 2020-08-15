@@ -112,7 +112,7 @@ export const stopRouteQuery = (id) => {
                     }
                 }
 
-                map(zoom: 13, width: 800, height: 400)
+                map(width: 800, height: 400)
                 
                 schedule {
                     next(number: 5) {
