@@ -1,7 +1,10 @@
 import React from 'react';
+import ReactGA from 'react-ga';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+ReactGA.initialize('UA-176040258-1');
 
 ReactDOM.render(
   <React.StrictMode>

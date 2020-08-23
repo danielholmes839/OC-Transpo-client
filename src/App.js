@@ -1,5 +1,5 @@
 import React from "react";
-import Container from "react-bootstrap/Container"
+import ReactGA from "react-ga"
 import "css/bootstrap.css";
 import "css/card.css";
 
@@ -9,31 +9,43 @@ import { client } from "api";
 
 // Routing
 import { Nav } from "routes";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import { homePath, historyPath, searchPath, stopPath, stopRoutePath, stopTimePath } from "routes";
 import { Home, History, Search, Stop, StopRoute, StopTime } from "pages";
-import { HistoryContext, HistoryManager } from "context";
+import { StopHistoryContext, StopHistory } from "context";
 
+
+const PageView = ({ children, view, Page, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={() => {
+        ReactGA.pageview(view)
+        return <Page/>;
+      }}
+    />
+  )
+}
 
 const App = () => {
   return (
     <ApolloProvider client={client}>
-      <HistoryContext.Provider value={new HistoryManager("history", 10)}>
+      <StopHistoryContext.Provider value={new StopHistory("history", 10)}>
         <Router>
-          <div>
-            <Nav />
+          <Nav />
+          <div className="container">
+            <Switch>
+              <PageView exact view={"/home"} path={homePath} Page={Home} />
+              <PageView exact view={"/history"} path={historyPath} Page={History} />
+              <PageView exact view={"/search"} path={searchPath} Page={Search} />
+              <PageView exact view={"/stop"} path={stopPath} Page={Stop} />
+              <PageView exact view={"/stoproute"} path={stopRoutePath} Page={StopRoute} />
+              <PageView exact view={"/stoptime"} path={stopTimePath} Page={StopTime} />
+              <Redirect to={homePath} />
+            </Switch>
           </div>
-          <Container>
-            <Route exact path="/"><Redirect to={homePath} /></Route>
-            <Route exact path={homePath} component={Home} />
-            <Route exact path={historyPath} component={History} />
-            <Route exact path={searchPath} component={Search} />
-            <Route path={stopPath} component={Stop} />
-            <Route path={stopRoutePath} component={StopRoute} />
-            <Route path={stopTimePath} component={StopTime} />
-          </Container>
         </Router>
-      </HistoryContext.Provider>
+      </StopHistoryContext.Provider>
     </ApolloProvider>
   );
 }

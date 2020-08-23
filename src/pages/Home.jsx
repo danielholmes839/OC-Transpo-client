@@ -48,6 +48,8 @@ const Home = () => {
             </Section>
 
             <p className="text-muted">Created by Daniel Holmes</p>
+            <div class="LI-profile-badge"  data-version="v1" data-size="medium" data-locale="en_US" data-type="horizontal" data-theme="light" data-vanity="holmes-daniel"><a class="LI-simple-link" href='https://ca.linkedin.com/in/holmes-daniel?trk=profile-badge'>Daniel Holmes</a></div>
+            
         </Page>
     );
 };

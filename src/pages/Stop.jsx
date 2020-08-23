@@ -4,13 +4,13 @@ import { useQuery } from '@apollo/react-hooks';
 import { Col, Row } from "react-bootstrap";
 import { StopTimeList, StopRouteSignLink, Card, Page, ErrorPage, IndentedParagraph, LoadingSpinner } from "components";
 import { stopQuery } from "api";
-import { HistoryContext } from 'context';
+import { StopHistoryContext } from 'context';
 
 
 const StopQuery = () => {
     // Query stop data
     let { id } = useParams();
-    let history = useContext(HistoryContext);
+    let history = useContext(StopHistoryContext);
 
     let { data, error, loading } = useQuery(stopQuery(id));
     if (loading) { return <LoadingSpinner /> }

@@ -1,9 +1,8 @@
 import React from "react";
 
 
-class HistoryManager {
+class StopHistory {
     constructor(name, size) {
-        console.log(`History: ${name}`)
         this.name = name
         this.size = size
         this.items = this.read();
@@ -39,5 +38,5 @@ class HistoryManager {
     }
 }
 
-const HistoryContext = React.createContext(null);
-export { HistoryContext, HistoryManager };
+const StopHistoryContext = React.createContext(null);
+export { StopHistoryContext, StopHistory };

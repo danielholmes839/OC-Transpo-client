@@ -33,7 +33,7 @@ const StopTime = () => {
 
             <Section title={"Stops"}>
                 {trip.stopTimes.map(stopTime => {
-                    let { stop, time } = stopTime;
+                    let { stop } = stopTime;
                     return (
                         <IndentedParagraph>
                             <Link to={stopTimePattern(stopTime.id)}>{stopTime.time.string}</Link>

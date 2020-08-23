@@ -1,3 +1,3 @@
-import { HistoryContext, HistoryManager } from './history';
+import { StopHistoryContext, StopHistory } from './StopHistory';
 
-export { HistoryContext, HistoryManager }
+export { StopHistoryContext, StopHistory }

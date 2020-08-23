@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ReactGA from "react-ga";
 import { useQuery } from "@apollo/react-hooks";
 import { useDebounce } from "use-lodash-debounce";
 import { searchQuery } from "api";
@@ -6,10 +7,22 @@ import { StopPreview, Page, IndentedParagraph, LoadingSpinner, ErrorMessage } fr
 
 
 const SearchQuery = ({ search, setLoading }) => {
-    let { data, loading, error } = useQuery(searchQuery(search))
+    ReactGA.event({
+        category: 'Request',
+        action: 'search',
+    });
+
+    let { data, loading, error } = useQuery(searchQuery(search)) //useQuery(searchQuery(search))
 
     useEffect(() => setLoading(false))
     if (loading) { return null; }
+    else if (error) {
+        ReactGA.event({
+            category: 'Error',
+            action: 'search',
+            label: search
+        });
+    }
     else if (error || data.stops.length === 0) {
         return (<ErrorMessage>No stops could found for: {search}</ErrorMessage>)
     }
@@ -42,7 +55,7 @@ const Search = () => {
             />
             {debouncedSearch.length > 0 && <SearchQuery search={debouncedSearch} setLoading={setLoading} />}
 
-            {loading && (<LoadingSpinner/>)}
+            {loading && (<LoadingSpinner />)}
         </Page>
     )
 }
