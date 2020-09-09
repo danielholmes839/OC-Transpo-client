@@ -141,6 +141,23 @@ export const stopRouteQuery = (id) => {
     `;
 };
 
+export const stopRouteScheduleQuery = (id) => {
+    return gql`
+        query {
+            stopRoute: StopRoute_get(id: "${id}") {
+                schedule {
+                    all {
+                        id
+                        time {
+                            string
+                        }
+                    }
+                }
+            }
+        }
+    `;
+};
+
 
 export const stopTimeQuery = (id) => {
     return gql`
