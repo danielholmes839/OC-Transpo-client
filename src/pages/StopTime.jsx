@@ -41,10 +41,7 @@ const StopTime = () => {
                         </IndentedParagraph>
                     )
                 })}
-
             </Section>
-
-
         </Page>
     )
 }
