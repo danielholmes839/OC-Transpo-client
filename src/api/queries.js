@@ -2,8 +2,8 @@ import { gql } from "apollo-boost";
 
 
 export const searchQuery = (text) => {
-    /* Search stops */
-    return gql`
+	/* Search stops */
+	return gql`
         query {
             stops: Stop_search(name: "${text}", limit: 10) {
                 id
@@ -25,8 +25,8 @@ export const searchQuery = (text) => {
 };
 
 export const stopHistoryQuery = (stops) => {
-    /* Search stops */
-    return gql`
+	/* Search stops */
+	return gql`
         query {
             stops: Stop_getMany(ids: ${JSON.stringify(stops)}) {
                 id
@@ -48,7 +48,7 @@ export const stopHistoryQuery = (stops) => {
 };
 
 export const stopQuery = (id) => {
-    return gql`
+	return gql`
         query {
             stop: Stop_get(id: "${id}") {
                 id
@@ -72,11 +72,11 @@ export const stopQuery = (id) => {
                     }
 
                     schedule {
-                        next(number: 3) {
+                        next(limit: 3) {
                             id
                             time {
                                 string
-                                remaining
+                                remaining: stringRemaining
                             }
                         }
                     }
@@ -88,7 +88,7 @@ export const stopQuery = (id) => {
 
 
 export const stopRouteQuery = (id) => {
-    return gql`
+	return gql`
         query {
             stopRoute: StopRoute_get(id: "${id}") {
                 id
@@ -104,7 +104,7 @@ export const stopRouteQuery = (id) => {
                         onTime
                         arrival {
                             string
-                            remaining
+                            remaining: stringRemaining
                         }
                         gps {
                             distance
@@ -115,11 +115,11 @@ export const stopRouteQuery = (id) => {
                 map(width: 800, height: 400)
                 
                 schedule {
-                    next(number: 5) {
+                    next(limit: 3) {
                         id
                         time {
                             string
-                            remaining
+                            remaining: stringRemaining
                         }
                     }
                 }
@@ -142,7 +142,7 @@ export const stopRouteQuery = (id) => {
 };
 
 export const stopRouteScheduleQuery = (id) => {
-    return gql`
+	return gql`
         query {
             stopRoute: StopRoute_get(id: "${id}") {
                 schedule {
@@ -160,7 +160,7 @@ export const stopRouteScheduleQuery = (id) => {
 
 
 export const stopTimeQuery = (id) => {
-    return gql`
+	return gql`
         query {
             stopTime: StopTime_get(id: "${id}") {
                 id
@@ -187,34 +187,36 @@ export const stopTimeQuery = (id) => {
                     string
                 }
                 
-                service {
-                    monday
-                    tuesday
-                    wednesday
-                    thursday
-                    friday
-                    saturday
-                    sunday
-
-                    start {
-                        string
-                    }
-                    
-                    end {
-                        string
-                    }
-                }
-                
                 trip {
-                    id
-                    stopTimes {
-                        id
-                        stop {
-                            id
-                            code
-                            name
+					id
+					stopTimes {
+						id
+						stop {
+							id
+							code
+							name
+						}
+						time {
+							string
+						}
+					}
+				}
+                
+                service {
+                    service {
+                        monday
+                        tuesday
+                        wednesday
+                        thursday
+                        friday
+                        saturday
+                        sunday
+
+                        start {
+                            string
                         }
-                        time {
+                        
+                        end {
                             string
                         }
                     }

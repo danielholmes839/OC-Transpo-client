@@ -8,6 +8,10 @@ import { LoadingSpinner, ErrorPage, Page, StopRouteSignLink, Section, IndentedPa
 let days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 let days_nice = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
+const serviceDays = (service) => {
+    return days_nice.filter((day, i) => service[days[i]]).join(", ");
+}
+
 const StopTime = () => {
     let { id } = useParams();
     let { data, loading, error } = useQuery(stopTimeQuery(id))
@@ -22,7 +26,7 @@ const StopTime = () => {
         <Page title={`${stop.name} - Stop #${stop.code}`}>
             <Section title={<span><StopRouteSignLink id={stopRoute.id} route={route} headsign={stopRoute.headsign} /> - {time.string}</span>}>
                 <IndentedParagraph>
-                    Service running from {service.start.string} to {service.end.string}
+                    Service on {serviceDays(service.service)} from {service.service.start.string} to {service.service.end.string}.
                 </IndentedParagraph>
                 <IndentedParagraph>
                     {days.filter(day => service[day]).map((day, i) => days_nice[i]).join(', ')}
