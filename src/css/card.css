@@ -11,4 +11,6 @@ div.card-shadow {
 
 .table-border-left {
     border-left: 1px solid#a06cef9c;
+    border-right: 1px solid#a06cef9c;
+    background-color: #f3f3f3;
 }
