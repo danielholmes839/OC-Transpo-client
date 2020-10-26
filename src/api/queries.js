@@ -24,6 +24,30 @@ export const searchQuery = (text) => {
     `;
 };
 
+export const stopPreviewDemoQuery = () => {
+    /* Search stops */
+    return gql`
+        query {
+            stops: Stop_search(name: "3000", limit: 1) {
+                id
+                name
+                code
+                stopRoutes {
+                    id
+                    headsign
+                    number
+                    route {
+                        textColour
+                        backgroundColour
+                        number
+                    }
+                }
+            }  
+        }
+    `
+};
+
+
 export const stopHistoryQuery = (stops) => {
 	/* Search stops */
 	return gql`

@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { Col, Row } from "react-bootstrap";
 import { StopTimeList, StopRouteSignLink, Card, Page, ErrorPage, IndentedParagraph, LoadingSpinner } from "components";
 import { stopQuery } from "api";
 import { StopHistoryContext } from 'context';
+import { stopRoutePattern } from "routes";
 
 
 const StopQuery = () => {
@@ -37,6 +38,9 @@ const StopQuery = () => {
                                 <StopTimeList stopTimes={schedule.next} number={number} headsign={headsign} />
                                 <br />
                                 <span className="text-muted">{liveBusData.busCount} Live buses</span>
+                                <div className="mt-2">
+                                    <Link className="btn btn-sm btn-outline-primary w-100" to={stopRoutePattern(id)}>View</Link>
+                                </div>
                             </Card>
                         </Col>
                     )

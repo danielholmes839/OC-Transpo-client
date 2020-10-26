@@ -8,3 +8,7 @@ div.card-shadow {
     box-shadow:  -5px 5px 10px #d9d9d9, 
                  5px -5px 10px #ffffff;
 }
+
+.table-border-left {
+    border-left: 1px solid#a06cef9c;
+}

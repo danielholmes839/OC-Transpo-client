@@ -16,7 +16,7 @@ const AppNav = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
-                        <Nav.Link className="py-0 pl-2 ml-2 my-1" as={NavLink} activeClassName={activeClassName} to={homePattern}>Home</Nav.Link>
+                        <Nav.Link className="py-0 pl-2 ml-2 my-1" as={NavLink} activeClassName={activeClassName} to={homePattern}>About</Nav.Link>
                         <Nav.Link className="py-0 pl-2 ml-2 my-1" as={NavLink} activeClassName={activeClassName} to={historyPattern}>History</Nav.Link>
                         <Nav.Link className="py-0 pl-2 ml-2 my-1" as={NavLink} activeClassName={activeClassName} to={searchPattern}>Search</Nav.Link>
                     </Nav>

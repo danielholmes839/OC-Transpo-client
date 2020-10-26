@@ -30,7 +30,7 @@ const StopTime = () => {
                     Service on {serviceDays(service.service)} from {service.service.start.string} to {service.service.end.string} at {time.string}.
                 </IndentedParagraph>
                 <ButtonLink to={stopPattern(stopTime.stop.id)}>View Stop</ButtonLink>
-                <ButtonLink to={stopRoutePattern(stopRoute.id)}>View Route</ButtonLink>
+                <ButtonLink to={stopRoutePattern(stopRoute.id)}>View Route / Live Data</ButtonLink>
             </Section>
 
             <Section title={"Stops"}>
@@ -56,8 +56,6 @@ const StopTime = () => {
                             </IndentedParagraph>
                         )
                     }
-
-                    
                 })}
             </Section>
         </Page>

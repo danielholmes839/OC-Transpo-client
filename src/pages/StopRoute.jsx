@@ -9,6 +9,7 @@ import { stopTimePattern } from "routes";
 const btnClass = "btn btn-sm btn-primary font-weight-bold px-4 my-1 mr-2 text-white"
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const Table = ({ stopTimes }) => {
+  let day = new Date().getDay();
   return (
     <table className="table table-sm table-responsive-sm table-fixed">
       <thead className="border-0">
@@ -24,18 +25,19 @@ const Table = ({ stopTimes }) => {
             return (
               <tr>
                 {stopTime.service.runningOnMany.map((runningOnDay, i) => {
+                  let borderClass = (i === day) ? "table-border-left" : ""
                   if (runningOnDay && stopTime.time.passed) {
                     return (
-                      <td>
+                      <td className={borderClass}>
                         <Link to={stopTimePattern(stopTime.id)} style={{ color: "#595959" }}>
                           {stopTime.time.string}
                         </Link>
                       </td>
                     );
                   } else if (runningOnDay) {
-                    return <td><Link to={stopTimePattern(stopTime.id)}>{stopTime.time.string}</Link></td>;
+                    return <td className={borderClass}><Link to={stopTimePattern(stopTime.id)}>{stopTime.time.string}</Link></td>;
                   } else {
-                    return <td><span style={{ color: "#CCCCCC" }}>---</span></td>;
+                    return <td className={borderClass}><span style={{ color: "#CCCCCC" }}>---</span></td>;
                   }
                 })}
                 <td style={{ minWidth: 100 }}>
@@ -118,6 +120,11 @@ const StopRoute = () => {
 
       {data.stopRoute.liveBusData.busCount > 0 && (
         <Section title="Live Bus Data">
+          {liveBusData.buses.length > 0 && 
+          <p className="text-muted">
+            The location of buses can be updated every 30 seconds. 
+            The scheduled time for buses is more accurate than the time below.
+          </p>}
           <IndentedParagraph>
             <BusList buses={liveBusData.buses} route={route} />
           </IndentedParagraph>

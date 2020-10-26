@@ -43,7 +43,7 @@ const Search = () => {
 
     return (
         <Page title={"Search"}>
-            <IndentedParagraph>Find your stop! Search by name or 4 digit stop code</IndentedParagraph>
+            <IndentedParagraph>Find your stop by name or 4 digit stop code</IndentedParagraph>
             <input
                 type="text"
                 className="form-control mb-1"
