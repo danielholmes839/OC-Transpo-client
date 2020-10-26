@@ -150,6 +150,15 @@ export const stopRouteScheduleQuery = (id) => {
                         id
                         time {
                             string
+                            passed
+                        }
+                        service {
+                            service {
+                                end {
+                                    string
+                                }
+                            }
+                            runningOnMany(days: [SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY])
                         }
                     }
                 }
@@ -204,13 +213,7 @@ export const stopTimeQuery = (id) => {
                 
                 service {
                     service {
-                        monday
-                        tuesday
-                        wednesday
-                        thursday
-                        friday
-                        saturday
-                        sunday
+                        running: runningOnMany(days: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY])
 
                         start {
                             string

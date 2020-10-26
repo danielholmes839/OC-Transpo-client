@@ -2,4 +2,12 @@
 
 [stop-checker.com](https://www.stop-checker.com)
 
-This is the React.js client using my [OC Transpo GraphQL API](https://github.com/danielholmes839/OCTranspo-GraphQL). stop-checker.com is the fastest way to access live bus data and schedules from OC Transpo (Ottawa's public transit system). Quickly get a map showing the location of your bus in real time. It's free and easy to use!
+This is the React.js client that uses my [OC Transpo GraphQL API](https://github.com/danielholmes839/OCTranspo-GraphQL).
+
+## Next Time...
+
+The code here is a complete mess. I don't use React that often. I made a lot of bad decisions when choosing how I should style, and structure my code.
+I originally start this project using just bootstrap. Eventually I decided I should switch to react-bootstrap so I could control the bootstrap elements with react.
+I ended up not switching entirely and was left with very confusing react-bootstrap mixed in with bootstrap classes. To make things worse I got very lazy and used a lot
+of inline styles using the style prop. This didn't make the code look too nice. I also started this project not know that I should use absolute paths - that was a big mistake.
+I didn't make use of apollo fragments to ensure that my components are getting the correct data. My error handling is messy. I could have made better components in general. R.

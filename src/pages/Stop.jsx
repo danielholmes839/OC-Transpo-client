@@ -47,8 +47,6 @@ const StopQuery = () => {
 }
 const StopWrapper = () => {
     return <StopQuery />
-
-
 }
 
 export default StopWrapper;

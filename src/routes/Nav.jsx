@@ -8,7 +8,7 @@ import Container from 'react-bootstrap/Container'
 import { homePattern, historyPattern, searchPattern } from "./patterns"
 
 const AppNav = () => {
-    let activeClassName = "border-left border-primary font-weight-bold text-primary"
+    let activeClassName = "font-weight-bold text-primary"
     return (
         <Navbar className="shadow-sm" expand="lg">
             <Container className="py-3">

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 const Button = ({ children }) => {
     return (
-        <div className="btn btn-sm btn-primary font-weight-bold px-5 my-1 mr-2 text-white">
+        <div className="btn btn-sm btn-primary font-weight-bold px-4 my-1 mr-2 text-white">
             {children}
         </div>
     )
@@ -11,7 +11,7 @@ const Button = ({ children }) => {
 
 const ButtonAnchor = ({ children, href }) => {
     return (
-        <a href={href} className="btn btn-sm btn-primary font-weight-bold px-5 my-1 mr-2 text-white">
+        <a href={href} className="btn btn-sm btn-primary font-weight-bold px-4 my-1 mr-2 text-white">
             {children}
         </a>
     )

@@ -3,13 +3,12 @@ import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { stopTimeQuery } from "api";
 import { stopTimePattern, stopPattern, stopRoutePattern } from "routes";
-import { LoadingSpinner, ErrorPage, Page, StopRouteSignLink, Section, IndentedParagraph, ButtonLink } from "components";
+import { LoadingSpinner, ErrorPage, Page, Section, IndentedParagraph, ButtonLink, StopRouteSign } from "components";
 
-let days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-let days_nice = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+let days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 const serviceDays = (service) => {
-    return days_nice.filter((day, i) => service[days[i]]).join(", ");
+    return days.filter((_, i) => service.running[i]).join(", ");
 }
 
 const StopTime = () => {
@@ -20,30 +19,45 @@ const StopTime = () => {
     else if (error) return <ErrorPage title={"Server Error"}>{error.message}</ErrorPage>
     else if (data == null) return <ErrorPage title={"Stop Time Error"}>{error.message}</ErrorPage>
 
-    let { stop, route, stopRoute, time, service, trip } = data.stopTime;
+    let { stopTime } = data
+    let { stop, route, stopRoute, time, service, trip } = stopTime;
+    let show = false;
 
     return (
-        <Page title={`${stop.name} - Stop #${stop.code}`}>
-            <Section title={<span><StopRouteSignLink id={stopRoute.id} route={route} headsign={stopRoute.headsign} /> - {time.string}</span>}>
+        <Page title={`${stopTime.stop.name} - Stop #${stopTime.stop.code}`}>
+            <Section title={<span><StopRouteSign id={stopRoute.id} route={route} headsign={stopRoute.headsign} /></span>}>
                 <IndentedParagraph>
-                    Service on {serviceDays(service.service)} from {service.service.start.string} to {service.service.end.string}.
+                    Service on {serviceDays(service.service)} from {service.service.start.string} to {service.service.end.string} at {time.string}.
                 </IndentedParagraph>
-                <IndentedParagraph>
-                    {days.filter(day => service[day]).map((day, i) => days_nice[i]).join(', ')}
-                </IndentedParagraph>
-                <ButtonLink to={stopPattern(stop.id)}>View Stop</ButtonLink>
+                <ButtonLink to={stopPattern(stopTime.stop.id)}>View Stop</ButtonLink>
                 <ButtonLink to={stopRoutePattern(stopRoute.id)}>View Route</ButtonLink>
             </Section>
 
             <Section title={"Stops"}>
-                {trip.stopTimes.map(stopTime => {
-                    let { stop } = stopTime;
-                    return (
-                        <IndentedParagraph>
-                            <Link to={stopTimePattern(stopTime.id)}>{stopTime.time.string}</Link>
-                            <span className="font-weight-bold text-primary"></span>  - <Link to={stopPattern(stop.id)} className="text-primary-dark">{stop.name}</Link>
-                        </IndentedParagraph>
-                    )
+                {trip.stopTimes.map((tripStopTime, i) => {
+                    let tripStop = tripStopTime.stop;
+                    if (!show && tripStop.id === stop.id) {
+                        show = true;
+                    }
+
+
+                    if (show) {
+                        return (
+                            <IndentedParagraph>
+                                <Link to={stopTimePattern(tripStopTime.id)}>{tripStopTime.time.string}</Link>
+                                <span className="font-weight-bold text-primary"></span>  - <Link to={stopPattern(tripStop.id)} className="text-primary-dark">{tripStop.name} </Link>
+                            </IndentedParagraph>
+                        )
+                    } else {
+                        return (
+                            <IndentedParagraph>
+                                <Link className="text-muted" to={stopTimePattern(tripStopTime.id)}>{tripStopTime.time.string}</Link>
+                                <span className="font-weight-bold"></span>  - <Link className="text-muted" to={stopPattern(tripStop.id)}>{tripStop.name} </Link>
+                            </IndentedParagraph>
+                        )
+                    }
+
+                    
                 })}
             </Section>
         </Page>

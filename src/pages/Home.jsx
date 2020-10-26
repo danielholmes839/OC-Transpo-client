@@ -14,20 +14,10 @@ const Home = () => {
                 <IndentedParagraph>
                     <HighLight>Stop Checker</HighLight> is the easiest,
                     and quickest way to get <HighLight>Live Bus Data</HighLight> in Ottawa for <HighLight>OC Transpo</HighLight>.
-                    <ul>
-                        <li>Search stops by name or stop code</li>
-                        <li>Get a map showing the location of buses in real-time</li>
-                        <li>Free to use!</li>
-                    </ul>
                 </IndentedParagraph>
+                <ButtonLink to={"/search"}>Search!</ButtonLink>
             </Section>
-
-            <Section title={"Find Your Stop!"}>
-                <IndentedParagraph>
-                    Get started and find your stop
-                </IndentedParagraph>
-                <ButtonLink to={"/search"}>Search ></ButtonLink>
-            </Section>
+                
 
             <Section title={"Example Map"}>
                 <IndentedParagraph>
@@ -43,7 +33,6 @@ const Home = () => {
                     Built using GraphQL, MongoDB, Typescript, React. The code for both the GraphQL server and React.js client can be found on GitHub below
                 </IndentedParagraph>
                 <ButtonAnchor href={"https://github.com/danielholmes839/OC-Transpo-GraphQL"}>GitHub / Server</ButtonAnchor>
-                <ButtonAnchor href={"https://github.com/danielholmes839/OC-Transpo-client"}>GitHub / Client</ButtonAnchor>
                 <ButtonAnchor href={"https://octranspo-graphql.herokuapp.com/"}>GraphQL Endpoint</ButtonAnchor>
             </Section>
 

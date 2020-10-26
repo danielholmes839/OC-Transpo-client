@@ -7,29 +7,30 @@ import { StopPreview, Page, IndentedParagraph, LoadingSpinner, ErrorMessage } fr
 
 
 const SearchQuery = ({ search, setLoading }) => {
-    ReactGA.event({
-        category: 'Request',
-        action: 'search',
-    });
-
     let { data, loading, error } = useQuery(searchQuery(search)) //useQuery(searchQuery(search))
 
     useEffect(() => setLoading(false))
-    if (loading) { return null; }
-    else if (error) {
+    if (loading) { 
+        return null; 
+    } else if (error) {
         ReactGA.event({
             category: 'Error',
             action: 'search',
-            label: search
+            label: error.message
         });
+        return (<ErrorMessage>{error.message}</ErrorMessage>)
     }
-    else if (error || data.stops.length === 0) {
+    else if (data.stops.length === 0) {
         return (<ErrorMessage>No stops could found for: {search}</ErrorMessage>)
     }
 
+    return <SearchResults results={data.stops}/>
+}
+
+const SearchResults = ({results}) => {
     return (
         <div>
-            {data.stops.map(stop => <StopPreview key={stop.id} stop={stop} />)}
+            {results.map(stop => <StopPreview key={stop.id} stop={stop} />)}
         </div>
     )
 }
@@ -38,7 +39,7 @@ const SearchQuery = ({ search, setLoading }) => {
 const Search = () => {
     let [search, setSearch] = useState("");
     let [loading, setLoading] = useState(false);
-    let debouncedSearch = useDebounce(search, 700);
+    let debouncedSearch = useDebounce(search, 500);
 
     return (
         <Page title={"Search"}>

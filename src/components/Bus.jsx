@@ -26,7 +26,7 @@ export const BusList = ({ buses, route }) => {
 
 export const LiveBusMap = ({ map }) => {
     return (
-        <div className="overflow-hidden position-relative">
+        <div className="overflow-auto position-relative">
             <img src={map} alt="Thank you for using this site. Maps are currently disabled for security reasons" />
         </div>
     )
