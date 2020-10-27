@@ -39,8 +39,8 @@ const Home = () => {
                 <IndentedParagraph>
                     This is an example of the maps that are generated showing the location of up to 3 live buses heading towards a stop. New maps can be generated every 30 seconds.
                 </IndentedParagraph>
-                <img className="img-fluid italic" src={mapImg} alt="Static Map" />
-                <p className="text-muted">2 buses on route 12 Blair heading towards Mackenzie King 1A</p>
+                <img className="img-fluid" src={mapImg} alt="Static Map" />
+                <p className="text-muted font-italic">2 buses on route 12 Blair heading towards Mackenzie King 1A</p>
             </Section>
 
             <Section title={"Stop Previews"}>
