@@ -2,24 +2,35 @@ import React from "react";
 import { StopRouteSign } from "./Signs";
 
 
-export const Bus = ({ bus, route }) => {
+export const Bus = ({ bus, route, headsign }) => {
     /* One bus */
+    let message;
+    if (bus.onTime) {
+        message = "This bus is on schedule";
+    } else if (!bus.onTime && bus.age === 0) {
+        message = "Updated just now";
+    } else if (!bus.onTime && bus.age === 1) {
+        message = "Updated 1 minute ago";
+    } else {
+        message = `Updated ${bus.age} minutes ago`;
+    }
+
+
     return (
         <div>
-            {bus.gps !== null && <span><StopRouteSign route={route} headsign={bus.headsign} /> - {bus.arrival.string} ({bus.gps.distance})</span>}
-            {bus.gps === null && <span><StopRouteSign route={route} headsign={bus.headsign} /> - {bus.arrival.string}</span>}
+            {bus.hasPosition && <span><StopRouteSign route={route} headsign={headsign} /> - {bus.arrival.string} ({bus.distance})</span>}
+            {!bus.hasPosition && <span><StopRouteSign route={route} headsign={headsign} /> - {bus.arrival.string}</span>}
             <br />
-            {!bus.onTime && <span className="text-muted">Late. Last updated {bus.age} minutes ago</span>}
-            {bus.onTime && <span className="text-muted">This bus is on schedule</span>}
+            <span className="text-muted">{message}</span>
         </div>
     )
 };
 
-export const BusList = ({ buses, route }) => {
+export const BusList = ({ buses, route, headsign }) => {
     /* List of buses */
     return (
         <ul className="list-unstyled">
-            {buses.map((bus, index) => <li key={index} className="mb-3"><Bus bus={bus} route={route} /></li>)}
+            {buses.map((bus, index) => <li key={index} className="mb-3"><Bus bus={bus} headsign={headsign} route={route} /></li>)}
         </ul>
     )
 };

@@ -122,17 +122,14 @@ export const stopRouteQuery = (id) => {
                 liveBusData {
                     busCount
                     buses {
-                        headsign
-                        number
-                        age
-                        onTime
-                        arrival {
+                        age: arrivalTimeLastUpdated
+                        onTime: arrivalTimeOnSchedule
+                        arrival: arrivalTime {
                             string
                             remaining: stringRemaining
                         }
-                        gps {
-                            distance
-                        }
+                        hasPosition
+                        distance
                     }
                 }
 

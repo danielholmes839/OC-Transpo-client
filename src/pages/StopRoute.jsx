@@ -122,11 +122,10 @@ const StopRoute = () => {
         <Section title="Live Bus Data">
           {liveBusData.buses.length > 0 && 
           <p className="text-muted">
-            The location of buses can be updated every 30 seconds. 
-            The scheduled time for buses is more accurate than the time below.
+            The location of buses can be updated every 30 seconds.
           </p>}
           <IndentedParagraph>
-            <BusList buses={liveBusData.buses} route={route} />
+            <BusList buses={liveBusData.buses} route={route} headsign={stopRoute.headsign} />
           </IndentedParagraph>
           {stopRoute.map !== null && (<LiveBusMap map={stopRoute.map} />)}
           {stopRoute.map === null && (<ErrorMessage>Live map could not be created. No GPS data is available</ErrorMessage>)}
